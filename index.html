@@ -1,0 +1,78 @@
+<html>
+  <head>    
+    <title>TN Covid Chart</title>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.1.0/chart.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="css/style.css">
+    
+  </head>
+  <body>
+    <div class="box">
+        <h3 id="text">TAMIL NADU COVID CASES</h3>
+      <canvas id="chart"></canvas>
+    </div>
+
+    <script>      
+        let district = ["Ariyalur","Chengalpattu","Chennai","Coimbatore","Cuddalore","Dharmapuri","Dindigul","Erode","Kallakurichi","Kancheepuram","Kanyakumari","Karur","Krishnagiri","Madurai","Nagapattinam","Namakkal","Nilgiris","Perambalur","Pudukkottai","Ramanathapuram","Ranipet","Salem","Sivaganga","Tenkasi","Thanjavur","Theni","Thiruvallur","Thiruvarur","Thoothukkudi","Tiruchirappalli","Tirunelveli","Tirupathur","Tiruppur","Tiruvannamalai","Vellore","Viluppuram","Virudhunagar"];
+        let Active = [], Confirm = [], Deceased = [], Recovered = [];
+
+        fetch("https://api.covid19india.org/state_district_wise.json")
+        .then(function(resp) 
+        {
+            return resp.json();
+        })
+        .then(function(data)
+        {
+            for(i = 0; i < district.length;i++) 
+            {
+                Active[i] = data["Tamil Nadu"].districtData[district[i]].active; 
+                Confirm[i] = data["Tamil Nadu"].districtData[district[i]].confirmed;
+                Deceased[i] = data["Tamil Nadu"].districtData[district[i]].deceased;
+                Recovered[i] = data["Tamil Nadu"].districtData[district[i]].recovered;
+            }           
+        })
+
+        let myChart = document.getElementById("chart").getContext("2d");
+
+        let display = new Chart(myChart, 
+        {
+            type: 'line',
+            data: 
+            {            
+                labels: district,
+                datasets: [
+                    {
+                        label: "Active",
+                        data: Active,                    
+                        backgroundColor: "Blue",
+                        borderWidth: 1,
+                        borderColor: "Black"                    
+                    },
+                    {
+                        label: "Confirmed",
+                        data: Confirm,                    
+                        backgroundColor: "Red",
+                        borderWidth: 1,
+                        borderColor: "#777"
+                    },
+                    {
+                        label: "Deceased",
+                        data: Confirm,                    
+                        backgroundColor: "Yellow",
+                        borderWidth: 1,
+                        borderColor: "#777"
+                    },
+                    {
+                        label: "Recovered",
+                        data: Confirm,                    
+                        backgroundColor: "Green",
+                        borderWidth: 1,
+                        borderColor: "#777"
+                    }
+                ]
+            }            
+        });
+        </script>
+    </body>
+    </html>

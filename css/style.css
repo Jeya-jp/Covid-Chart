@@ -1,0 +1,16 @@
+body
+{
+    margin-top: 2%;
+}
+.box
+{
+    padding-left: 10%;
+    width: 90%;
+    height: 80%;
+}
+
+#text
+{
+    color: brown;
+    text-align: center;
+}
