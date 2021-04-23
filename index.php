@@ -8,6 +8,48 @@
     <script src="js/first.js"></script>
     
   </head>
+  <?php
+
+    function checkPageVisitor()
+    {
+        // echo "<script> alert('Hello World') </script>";
+        session_start();
+
+        if(isset($_SESSION['covidTracker4']))
+        {
+            $_SESSION['covidTracker4'] = $_SESSION['covidTracker4']+1;
+            class DB extends SQLite3
+            {
+                function __construct()
+                {
+                    $this->open('./DB/Visitors.db');
+                }
+            }
+            $db=new DB();
+            $count = $_SESSION['covidTracker4'];
+            $sql="UPDATE visitorsCount SET view = $count";
+            $result=$db->Query($sql);
+            echo"views = ".$_SESSION['covidTracker4'];
+        }
+        else
+        {
+            $_SESSION['covidTracker4']=1;
+            class DB extends SQLite3
+            {
+                function __construct()
+                {
+                    $this->open('./DB/Visitors.db');
+                }
+            }
+            $db=new DB();
+            $count = 1;
+            $sql="INSERT INTO visitorsCount(view) VALUES($count)";
+            $result=$db->Query($sql);
+            echo"views = ".$_SESSION['covidTracker4'];
+        }
+    }
+    checkPageVisitor();
+?>
   <body onload="onloadjs();">
         <div>
             <div class="container">
