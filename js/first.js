@@ -1,4 +1,4 @@
-function onloadjs()
+function onloadJS()
 {
     let district = ["Ariyalur","Chengalpattu","Chennai","Coimbatore","Cuddalore","Dharmapuri","Dindigul","Erode","Kallakurichi","Kancheepuram","Kanyakumari","Karur","Krishnagiri","Madurai","Nagapattinam","Namakkal","Nilgiris","Perambalur","Pudukkottai","Ramanathapuram","Ranipet","Salem","Sivaganga","Tenkasi","Thanjavur","Theni","Thiruvallur","Thiruvarur","Thoothukkudi","Tiruchirappalli","Tirunelveli","Tirupathur","Tiruppur","Tiruvannamalai","Vellore","Viluppuram","Virudhunagar"];
         let Active = [], Confirm = [], Deceased = [], Recovered = [];
@@ -20,7 +20,6 @@ function onloadjs()
         })
 
         let myChart = document.getElementById("chart").getContext("2d");
-
         let display = new Chart(myChart, 
         {
             type: 'line',
@@ -85,9 +84,9 @@ function onloadjs()
                     var node = document.createElement("li");
                     var textnode = document.createTextNode(district[i] + " = " + s[i]);
                     node.appendChild(textnode);
-                    document.getElementById("box2").appendChild(node);          
-                    
+                    document.getElementById("box2").appendChild(node);                     
                 }
+
                 if(Active2[i] > Active[i])
                 {
                     s[i] = s[i].replace('-', ''); 
